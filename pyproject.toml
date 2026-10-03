@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "circuitrag"
+version = "0.1.0"
+description = "Hybrid dense + keyword retrieval over biological-circuit papers from arXiv"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "beautifulsoup4",
+]
+
+[project.optional-dependencies]
+embeddings = ["sentence-transformers"]   # real sentence embeddings (recommended)
+pdf = ["pymupdf"]                        # fallback when arXiv has no HTML rendering
+generate = ["anthropic"]                 # the `ask` subcommand
+all = ["sentence-transformers", "pymupdf", "anthropic"]
+
+[project.scripts]
+circuitrag = "circuitrag.cli:main"
+
+[tool.setuptools]
+packages = ["circuitrag"]
